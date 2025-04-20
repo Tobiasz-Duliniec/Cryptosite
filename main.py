@@ -65,26 +65,26 @@ def CeasarCipher(message:str, rotation:int) -> str:
     return encryptedMessage
 
 @app.route('/Cesar', methods = ['GET', 'POST'])
-def CesarCipherPage():
+def CeasarCipherPage():
     if(request.method == 'POST'):
         message = request.form.get('message', None)
         shift = request.form.get('shift', None)
         action = request.form.get('action', 'encrypt')
         if message is None or shift is None:
             flash('Invalid shift value!', 'error')
-            return render_template('szyfrcezara.html')
+            return render_template('ceasarcipher.html')
         else:
             try:
                 shift = int(shift)
             except ValueError:
                 flash('Invalid shift value!', 'error')
-                return render_template('szyfrcezara.html')
+                return render_template('ceasarcipher.html')
             if(action == 'decrypt'):
                 result = CeasarCipher(message, -1 * shift)
             else:
                  result = CeasarCipher(message, shift)
-        return render_template('szyfrcezara.html', result = result)
-    return render_template('szyfrcezara.html')
+        return render_template('ceasarcipher.html', result = result)
+    return render_template('ceasarcipher.html')
 
 def VigenereCipher(message:str, key:str, action:str) -> str:
     while(len(key) < len(message)):
