@@ -1,5 +1,5 @@
 from flask import Flask, flash, render_template, request, send_from_directory
-from string import ascii_lowercase
+from string import ascii_letters, ascii_lowercase, ascii_uppercase
 
 app = Flask(__name__)
 
@@ -8,7 +8,7 @@ class KeyIterator:
         self.index = -1
         self.key = ''
         for letter in key:
-            if letter in ascii_lowercase:
+            if letter in ascii_letters:
                 self.key += letter
         
     def __iter__(self):
@@ -23,29 +23,32 @@ def send_styles():
     return send_from_directory('static', 'style.css')
 
 def CeasarCipher(message:str, rotation:int) -> str:
-    def get_alphabet_no(letter:str):
-        for index, let in enumerate(alphabet):
+    def get_letter_no(letter:str):
+        for index, let in enumerate(ascii_lowercase):
+            if(let == letter):
+                return index
+        for index, let in enumerate(ascii_uppercase):
             if(let == letter):
                 return index
         
-    alphabet = ascii_lowercase * 2
+    alphabet = ascii_letters * 2
     if(rotation > 26):
         rotation %= 26
     elif(rotation < -26):
         rotation %= -26
     encryptedMessage = ""
     for letter in message:
-        if(letter not in alphabet):
+        if(letter not in ascii_letters):
             encryptedMessage += letter
             continue
-        if(rotation > 0):
-            newLetter = alphabet[get_alphabet_no(letter) + rotation]
+        if(letter.islower()):
+            newLetter = (ascii_lowercase * 2)[get_letter_no(letter) + rotation]
         else:
-            newLetter = alphabet[26 + get_alphabet_no(letter) + rotation]
+            newLetter = (ascii_uppercase * 2)[get_letter_no(letter) + rotation]
         encryptedMessage += newLetter
     return encryptedMessage
 
-@app.route('/Cesar', methods = ['GET', 'POST'])
+@app.route('/Ceasar', methods = ['GET', 'POST'])
 def CeasarCipherPage():
     if(request.method == 'POST'):
         message = request.form.get('message', None)
@@ -73,7 +76,7 @@ def VigenereCipher(message:str, key:str, action:str) -> str:
     keyGenerator = KeyIterator(key)
     encryptedMessage = ""
     for letter in message:
-        if letter not in ascii_lowercase:
+        if letter not in ascii_letters:
             encryptedMessage += letter
             continue
         else:
@@ -96,14 +99,6 @@ def VigenereCipherPage():
         result = VigenereCipher(message, key, action)
         return render_template('vigenerecipher.html', result = result)
     return render_template('vigenerecipher.html')
-
-def OneTimePad():
-    message = "abc"
-    key = KeyIterator("dtgr")
-    message = ''
-    for x in 'abc':
-        print(ord(x) ^ ord(next(key)))
-    print(message)
 
 @app.route('/')
 def index():
