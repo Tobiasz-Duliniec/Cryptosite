@@ -35,7 +35,6 @@ def CeasarCipher(message:str, rotation:int) -> str:
         rotation %= -26
     encryptedMessage = ""
     for letter in message:
-        print(f'LITERA: {letter} | ROTACJA: {rotation}')
         if(letter not in alphabet):
             encryptedMessage += letter
             continue
@@ -43,25 +42,7 @@ def CeasarCipher(message:str, rotation:int) -> str:
             newLetter = alphabet[get_alphabet_no(letter) + rotation]
         else:
             newLetter = alphabet[26 + get_alphabet_no(letter) + rotation]
-        
-        
-        '''
-        newLetter = ord(letter) + rotation
-        if(newLetter in range(123, 200)):
-            newLetter -= 26
-        elif(newLetter in range(0, 65)):
-             newLetter += 26
-        elif(newLetter in range(91, 97)):
-            if ord(letter) in range(97, 123):
-                newLetter+=26
-            else:
-                newLetter-=26
-        '''
-        '''
-        if((newLetter not in range(97, 123)) and (newLetter not in range(65, 91))):
-            newLetter -= 26 * 1
-        '''
-    encryptedMessage += newLetter
+        encryptedMessage += newLetter
     return encryptedMessage
 
 @app.route('/Cesar', methods = ['GET', 'POST'])
