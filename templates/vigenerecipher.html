@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block main %}
-	{% if result is defined %}
-		{{result}}
-	{% endif %}
 	<header><h1>Vigenère cipher</h1></header>
+	{% if result is defined %}
+		<p>{{message}} encrypted with the key {{key}} is {{result}}.</p>
+	{% endif %}
 	<form action="/Vigenere" method="POST">
-		<label for="name">Message to encrypt:</label>
+		<label for="name">Message to encrypt/decrypt:</label>
 		<input name="message" type="text" required>
 		<label for="key">Key:</label>
 		<input name="key" type="text" required>

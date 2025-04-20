@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block main %}
-	{% if result is defined %}
-		{{result}}
-	{% endif %}
 	<header><h1>Ceasar cipher</h1></header>
+	{% if result is defined %}
+		<p>{{message}} encrypted with a shift of {{shift}} is {{result}}.</p>
+	{% endif %}
 	<form action="/Ceasar" method="POST">
-		<label for="name">Message to encrypt:</label>
+		<label for="name">Message to encrypt/decrypt:</label>
 		<input name="message" type="text" required>
 		<label for="shift">Shift:</label>
 		<input name="shift" type="number" required>
