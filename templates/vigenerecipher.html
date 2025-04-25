@@ -2,13 +2,13 @@
 {% block main %}
 	<header><h1>Vigenère cipher</h1></header>
 	{% if result is defined %}
-		<p>{{message}} encrypted with the key {{key}} is {{result}}.</p>
+		<p>{{message}} {% if action == "decrypt" %}decrypted{% else %}encrypted{% endif %} with the key {{key}} is {{result}}.</p>
 	{% endif %}
-	<form action="/Vigenere" method="POST">
+	<form action="/Vigenere" id="encryption_form" method="POST">
 		<label for="name">Message to encrypt/decrypt:</label>
-		<input name="message" type="text" required>
+		<input name="message" id="message" type="text" required>
 		<label for="key">Key:</label>
-		<input name="key" type="text" required>
+		<input name="key" id="key" type="text" required>
 		<label for="action">Action:</label>
 		<select name="action">
 			<option value="encrypt">Encrypt</option>

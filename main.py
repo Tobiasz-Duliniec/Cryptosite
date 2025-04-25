@@ -24,15 +24,21 @@ class KeyIterator:
         self.index += 1
         return self.key[self.index]
 
-def checkKey(key:str):
+def checkKey(key:str) -> bool:
+    checked_key = ""
     for letter in key:
         if letter not in ascii_letters:
-            return False
-    return True
+            continue
+        checked_key += letter
+    return checked_key != ""
 
 @app.route('/style.css')
 def send_styles():
     return send_from_directory('static', 'style.css')
+
+@app.route('/skrypt.js')
+def send_js():
+    return send_from_directory('static', 'skrypt.js')
 
 def CeasarCipher(message:str, rotation:int) -> str:
     def get_letter_no(letter:str):
@@ -79,7 +85,7 @@ def CeasarCipherPage():
                 result = CeasarCipher(message, -1 * shift)
             else:
                  result = CeasarCipher(message, shift)
-        return render_template('ceasarcipher.html', result = result, message = message, shift = shift)
+        return render_template('ceasarcipher.html', result = result, message = message, shift = shift, action = action)
     return render_template('ceasarcipher.html')
 
 def VigenereCipher(message:str, key:str, action:str):
@@ -114,7 +120,7 @@ def VigenereCipherPage():
             flash('Invalid message and/or key values!', 'error')
             return render_template('vigenerecipher.html')
         result = VigenereCipher(message, key, action)
-        return render_template('vigenerecipher.html', result = result, message = message, key = key)
+        return render_template('vigenerecipher.html', result = result, message = message, key = key, action = action)
     return render_template('vigenerecipher.html')
 
 @app.route('/')
