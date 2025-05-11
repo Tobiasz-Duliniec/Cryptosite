@@ -35,6 +35,10 @@ def send_styles():
 def send_js():
     return send_from_directory('static', 'skrypt.js')
 
+@app.route('/favicon.ico')
+def send_favicon():
+    return send_from_directory('static', 'favicon.ico')
+
 def BaconsCipher(message:str, action:str):
     letter_to_code = {
         'a': 'aaaaa',
