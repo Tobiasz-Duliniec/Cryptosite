@@ -11,12 +11,6 @@ class KeyIterator:
     def __init__(self, key):
         self.index = -1
         self.key = key
-        '''self.key = ""
-        for letter in key:
-            if letter in ascii_letters:
-                self.key += letter
-        if(self.key == ""):
-            raise ValueError("Key doesn't contain any letters from the Latin alphabet!")'''
         
     def __iter__(self):
         return self
@@ -167,9 +161,6 @@ def VigenereCipher(message:str, key:str, action:str):
             else:
                 encryptedMessage += CeasarCipher(letter, shift)
     return encryptedMessage
-    '''else:
-        flash("Key doesn't containt any values from the Latin alphabet!", 'error')
-        return None'''
 
 @app.route('/Vigenere', methods = ['GET', 'POST'])
 def VigenereCipherPage():
