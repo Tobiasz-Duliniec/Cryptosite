@@ -6,20 +6,25 @@
 		<meta name="author" content="Tobiasz Duliniec">
 		<link rel="stylesheet" type="text/css" href="style.css">
 		<title>Cryptosite</title>
-		<script src="skrypt.js" defer></script>
+		{% if request.path == "/Vigenere" %}<script src="skrypt.js" defer></script>{% endif %}
 	</head>
 	<body>
-		<nav>
-			<header>
-				<h1>Ciphers</h1>
-			</header>
-			<a href="/Ceasar">Ceasar cipher</a>
-			<a href="/Vigenere">Vigenère cipher</a>
-			<a href="/BaconsCipher">Bacon's cipher</a>
-		</nav>
-		<article>
-			<header><h1>Cryptosite</h1></header>
-			{% block main %}{% endblock %}
-		</article>
+		<main>
+			<nav>
+				<header>
+					<h1>Ciphers</h1>
+				</header>
+				<a href="/Ceasar">Ceasar cipher</a>
+				<a href="/Vigenere">Vigenère cipher</a>
+				<a href="/BaconsCipher">Bacon's cipher</a>
+			</nav>
+			<article>
+				<header><h1>Cryptosite</h1></header>
+				{% block main %}{% endblock %}
+			</article>
+		</main>
+		<footer>
+			<a href="https://github.com/Tobiasz-Duliniec/Cryptosite">Source code on GitHub.</a>
+		</footer>
 	</body>
 </html>
