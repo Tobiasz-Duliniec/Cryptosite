@@ -1,3 +1,26 @@
 body{
 	background-color: lightblue;
+	display: grid;
+	grid-template-columns: 1fr 3fr;
+	gap: 10px;
+}
+
+nav{
+	text-align: center;
+	border: 4px solid;
+	padding: 20px;
+	border-radius: 20px;
+	background-color: skyblue;
+}
+
+nav a{
+	display: block;
+}
+
+article{
+	text-align: center;
+	border: 4px solid;
+	padding: 20px;
+	border-radius: 20px;
+	background-color: skyblue;
 }

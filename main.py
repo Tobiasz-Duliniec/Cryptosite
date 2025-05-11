@@ -10,12 +10,13 @@ app.secret_key = hashlib.sha256().digest()
 class KeyIterator:
     def __init__(self, key):
         self.index = -1
-        self.key = ""
+        self.key = key
+        '''self.key = ""
         for letter in key:
             if letter in ascii_letters:
                 self.key += letter
         if(self.key == ""):
-            raise ValueError("Key doesn't contain any letters from the Latin alphabet!")
+            raise ValueError("Key doesn't contain any letters from the Latin alphabet!")'''
         
     def __iter__(self):
         return self
@@ -39,6 +40,67 @@ def send_styles():
 @app.route('/skrypt.js')
 def send_js():
     return send_from_directory('static', 'skrypt.js')
+
+def BaconsCipher(message:str, action:str):
+    letter_to_code = {
+        'a': 'aaaaa',
+        'b': 'aaaab',
+        'c': 'aaaba',
+        'd': 'aaabb',
+        'e': 'aabaa',
+        'f': 'aabab',
+        'g': 'aabba',
+        'h': 'aabbb',
+        'i': 'abaaa',
+        'j': 'abaab',
+        'k': 'ababa',
+        'l': 'ababb',
+        'm': 'abbaa',
+        'n': 'abbab',
+        'o': 'abbba',
+        'p': 'abbbb',
+        'q': 'baaaa',
+        'r': 'baaab',
+        's': 'baaba',
+        't': 'baabb',
+        'u': 'babaa',
+        'v': 'babab',
+        'w': 'babba',
+        'x': 'babbb',
+        'y': 'bbaaa',
+        'z': 'bbaab'
+        }
+
+    code_to_key = {code:letter for letter, code in letter_to_code.items()}
+
+    def encrypt(message:str):
+        encrypted = ''
+        for letter in message:
+            letter = letter.lower()
+            if letter in letter_to_code:
+                encrypted += letter_to_code[letter] + ' '
+        return encrypted[:-1]
+
+    def decrypt(cipher:str):
+        cipher = cipher.split(' ')
+        decrypted = ''
+        for code in cipher:
+            if code in code_to_key:
+                decrypted += code_to_key[code]
+        return decrypted
+    
+    return decrypt(message) if(action == 'decrypt') else encrypt(message)
+
+@app.route('/BaconsCipher', methods = ['GET', 'POST'])
+def BaconsCipherPage():
+    if(request.method == 'POST'):
+        message = request.form.get('message', None)
+        action = request.form.get('action', 'encrypt')
+        if message is None:
+            flash('Invalid messahe/key value!', 'error')
+            return render_template('baconscipher.html')
+        return render_template('baconscipher.html', message = message, action = action, result = BaconsCipher(message, action))
+    return render_template('baconscipher.html')
 
 def CeasarCipher(message:str, rotation:int) -> str:
     def get_letter_no(letter:str):
@@ -89,26 +151,25 @@ def CeasarCipherPage():
     return render_template('ceasarcipher.html')
 
 def VigenereCipher(message:str, key:str, action:str):
-    if(checkKey(key)):
-        while(len(key) < len(message)):
-            key += key
-        keyGenerator = KeyIterator(key)
-        encryptedMessage = ""
-        for letter in message:
-            if letter not in ascii_letters:
-                encryptedMessage += letter
-                continue
+    #if(checkKey(key)):
+    while(len(key) < len(message)):
+        key += key
+    keyGenerator = KeyIterator(key)
+    encryptedMessage = ""
+    for letter in message:
+        if letter not in ascii_letters:
+            encryptedMessage += letter
+            continue
+        else:
+            shift = ord(next(keyGenerator).lower()) - 97
+            if(action == 'decrypt'):
+                encryptedMessage += CeasarCipher(letter, -1 * shift)
             else:
-                shift = ord(next(keyGenerator).lower()) - 97
-                if(action == 'decrypt'):
-                    encryptedMessage += CeasarCipher(letter, -1 * shift)
-                else:
-                    encryptedMessage += CeasarCipher(letter, shift)
-        return encryptedMessage
-    else:
+                encryptedMessage += CeasarCipher(letter, shift)
+    return encryptedMessage
+    '''else:
         flash("Key doesn't containt any values from the Latin alphabet!", 'error')
-        print("Zwracam None")
-        return None
+        return None'''
 
 @app.route('/Vigenere', methods = ['GET', 'POST'])
 def VigenereCipherPage():

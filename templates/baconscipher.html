@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block main %}
+	<header><h1>Bacon's cipher</h1></header>
+	{% if result is defined %}
+		<p>{{message}} encrypted is {{result}}.</p>
+	{% endif %}
+	<form action="/BaconsCipher" id="encryption_form" method="POST">
+		<label for="name">Message to encrypt/decrypt:</label>
+		<input name="message" id="message" type="text" required>
+		<label for="action">Action:</label>
+		<select name="action">
+			<option value="encrypt">Encrypt</option>
+			<option value="decrypt">Decrypt</option>
+		</select>
+		<input type="submit" value="Encrypt">
+	</form>
+{% endblock %}

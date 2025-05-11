@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% block main %}
 	<header><h1>Vigenère cipher</h1></header>
+	{% with messages = get_flashed_messages(with_categories = true) %}
+		{% if messages %}
+			<p>{{messages[0][1]}}</p>
+		{% endif %}
+	{% endwith %}
 	{% if result is defined %}
 		<p>{{message}} {% if action == "decrypt" %}decrypted{% else %}encrypted{% endif %} with the key {{key}} is {{result}}.</p>
 	{% endif %}
