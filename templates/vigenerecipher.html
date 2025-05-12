@@ -6,9 +6,9 @@
 	{% endif %}
 	<form action="/Vigenere" id="encryption_form" method="POST">
 		<label for="name">Message to encrypt/decrypt:</label>
-		<input name="message" id="message" type="text">
+		<input name="message" id="message" type="text" required>
 		<label for="key">Key:</label>
-		<input name="key" id="key" type="text">
+		<input name="key" id="key" type="text" required>
 		<label for="action">Action:</label>
 		<select name="action">
 			<option value="encrypt">Encrypt</option>

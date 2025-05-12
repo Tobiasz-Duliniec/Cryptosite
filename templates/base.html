@@ -24,7 +24,7 @@
 				<header><h1>Cryptosite</h1></header>
 				{% with messages = get_flashed_messages(with_categories = true) %}
 					{% if messages %}
-						<p>{{messages[0][1]}}</p>
+						<p id="{{messages[0][0]}}">{{messages[0][1]}}</p>
 					{% endif %}
 				{% endwith %}
 				{% block main %}{% endblock %}

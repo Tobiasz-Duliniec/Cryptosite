@@ -8,6 +8,11 @@ main{
 	gap: 10px;
 }
 
+#error{
+	font-weight: bold;
+	color: darkred;
+}
+
 nav a{
 	display: block;
 }
