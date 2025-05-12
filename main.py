@@ -89,7 +89,7 @@ def BaconsCipher(message:str, action:str):
     
     return decrypt(message) if(action == 'decrypt') else encrypt(message)
 
-@app.route('/BaconsCipher', methods = ['GET', 'POST'])
+@app.route('/Bacon', methods = ['GET', 'POST'])
 def BaconsCipherPage():
     if(request.method == 'POST'):
         message = request.form.get('message', None)

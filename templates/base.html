@@ -15,10 +15,10 @@
 				<header>
 					<h1>Ciphers</h1>
 				</header>
-				<a href="/">Main page</a>
-				<a href="/Ceasar">Ceasar cipher</a>
-				<a href="/Vigenere">Vigenère cipher</a>
-				<a href="/BaconsCipher">Bacon's cipher</a>
+				{% if request.path == "/" %}<p><b>Main page</b></p>{% else %}<a href="/">Main page</a>{% endif %}
+				{% if request.path == "/Ceasar" %}<p><b>Ceasar cipher</b></p>{% else %}<a href="/Ceasar">Ceasar cipher</a>{% endif %}
+				{% if request.path == "/Vigenere" %}<p><b>Vigenère cipher</b></p>{% else %}<a href="/Vigenere">Vigenère cipher</a>{% endif %}
+				{% if request.path == "/Bacon" %}<p><b>Bacon's cipher</b></p>{% else %}<a href="/Bacon">Bacon's cipher</a>{% endif %}
 			</nav>
 			<article>
 				<header><h1>Cryptosite</h1></header>
