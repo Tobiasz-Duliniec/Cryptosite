@@ -94,7 +94,7 @@ def BaconsCipherPage():
     if(request.method == 'POST'):
         message = request.form.get('message', None)
         action = request.form.get('action', 'encrypt')
-        if message is None:
+        if message is None or message == "":
             flash('Invalid messahe/key value!', 'error')
             return render_template('baconscipher.html')
         return render_template('baconscipher.html', message = message, action = action, result = BaconsCipher(message, action))
@@ -132,7 +132,7 @@ def CeasarCipherPage():
         message = request.form.get('message', None)
         shift = request.form.get('shift', None)
         action = request.form.get('action', 'encrypt')
-        if message is None or shift is None:
+        if message is None or message == "" or shift is None or shift == "":
             flash('Invalid shift value!', 'error')
             return render_template('ceasarcipher.html')
         else:
@@ -172,7 +172,7 @@ def VigenereCipherPage():
         message = request.form.get('message', None)
         key = request.form.get('key', None)
         action = request.form.get('action', 'encrypt')
-        if message is None or key is None:
+        if message is None or message == "" or key is None or key == "":
             flash('Invalid message and/or key values!', 'error')
             return render_template('vigenerecipher.html')
         result = VigenereCipher(message, key, action)

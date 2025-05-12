@@ -1,19 +1,14 @@
 {% extends "base.html" %}
 {% block main %}
 	<header><h1>Vigenère cipher</h1></header>
-	{% with messages = get_flashed_messages(with_categories = true) %}
-		{% if messages %}
-			<p>{{messages[0][1]}}</p>
-		{% endif %}
-	{% endwith %}
 	{% if result is defined %}
 		<p>{{message}} {% if action == "decrypt" %}decrypted{% else %}encrypted{% endif %} with the key {{key}} is {{result}}.</p>
 	{% endif %}
 	<form action="/Vigenere" id="encryption_form" method="POST">
 		<label for="name">Message to encrypt/decrypt:</label>
-		<input name="message" id="message" type="text" required>
+		<input name="message" id="message" type="text">
 		<label for="key">Key:</label>
-		<input name="key" id="key" type="text" required>
+		<input name="key" id="key" type="text">
 		<label for="action">Action:</label>
 		<select name="action">
 			<option value="encrypt">Encrypt</option>
