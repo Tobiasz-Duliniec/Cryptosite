@@ -2,7 +2,7 @@
 {% block main %}
 	<header><h1>Bacon's cipher</h1></header>
 	{% if result is defined %}
-		<p>{{message}} encrypted is {{result}}.</p>
+		<p>{{message}} {% if action == "decrypt" %}decrypted{% else %}encrypted{% endif %} is {{result}}.</p>
 	{% endif %}
 	<form action="/Bacon" id="encryption_form" method="POST">
 		<label for="name">Message to encrypt/decrypt:</label>
